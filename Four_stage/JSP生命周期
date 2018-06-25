@@ -1,0 +1,8 @@
+编译阶段
+servlet容器编译成servlet源文件，生产servlet类
+初始化阶段
+加载与jsp对应的servlet类，创建实例，调用其初始方法
+执行阶段
+调用与jsp对应servlet实例方法
+销毁服务
+调用与jsp对应servlet实例销毁方法，再销毁servlet实例

@@ -1,0 +1,18 @@
+1.中间件
+Tomcat:Apache 应用最广javaWeb服务器，支持servlet，不支持JacaEE规范
+JBoss：Redhat 支持JavaEE规则
+Weblogic：Oracle 支持JavaEE规则，适合大型项目
+Websphere：IBM 支持JavaEE规则，适合大型项目
+2.tomcat
+bin 执行文件
+lib 类库
+temp 临时文件
+config 配置文件
+logs 日志文件
+webapps 网站应用
+work 将jsp转为servlet
+3.tomcat相关启动
+catalina.bat start
+catalina.bat run
+startup.bat
+shutdown.bat

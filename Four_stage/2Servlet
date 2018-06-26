@@ -1,0 +1,53 @@
+1.Servlet简述
+Servlet是
+  JavaWeb三大组件之一，其余两个为Filter、Listener，属于动态资源
+  其用于处理请求，服务器会将接收的请求交给Servlet处理
+  每个Servlet都必须实现javax.servlet.Servle t接口
+  -->接收请求、处理请求、完成响应
+2.常见配置 -->配置于tomcat下 webapps中的项目下
+  META-INF
+  WEB-INF  -->lib（类库）、classes（java代码）、web.xml（配置文件）
+  页面 -->index.html
+  访问 协议://域名：端口号/页面
+3.http协议
+  请求协议和响应协议
+  建立请求 --> 发送请求信息 --> 回复响应信息 --> 关闭连接
+4.请求格式
+  请求行
+  请求头 -->键值对、相关信息
+  空行
+  请求体
+5.响应格式
+  响应行
+  响应头
+  空行
+  响应体
+6.响应状态
+  200 成功
+  404 页面找不到
+  500 内部错误
+  302 重定向
+  304 请求资源没有改变（刷新没有请求新资源）
+  403 权限不足
+7.GET
+  直接输入网址、点击超链接
+  表单提交 method="GET"
+  优点：
+    标签
+  缺点：
+    不安全，密码也会显示在地址栏
+    地址有大小，最长字符为255字符
+8.POST
+  method="POST"
+  在地址栏中看不到数据传递，放置在请求体中
+  优点：
+    相对安全
+    大小无限制
+  缺点：
+    不能做标签
+9.Servlet程序 三种方式
+  实现javax.servlet.Servlet接口
+  继承javax.servlet.GenericeServlet接口
+  继承javax.servlet.HttpServlet接口      ->最方便
+  
+  

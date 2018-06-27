@@ -47,7 +47,127 @@ Servlet是
     不能做标签
 9.Servlet程序 三种方式
   实现javax.servlet.Servlet接口
-  继承javax.servlet.GenericeServlet接口
-  继承javax.servlet.HttpServlet接口      ->最方便
-  
-  
+  继承javax.servlet.GenericeServlet
+  继承javax.servlet.HttpServlet     ->最方便
+10.HelloServlet类实现方法  -->实现接口 javax.servlet.Servlet
+  init(ServletConfig) 初始化只有一次，只有在第一次请求或者Servlet容器启动时，才开启
+  service(ServletRequest,ServletResponse) 服务，每次请求页面什么的，都会调用
+  destroy()
+  getServletConfig() 得到Servlet的配置参数
+  getServletInfo() 返回Servlet描述信息，比如作者、版本、版权等。
+  特点：
+    单例、线程不安全（效率高）、Servlet实现类我们写，生命周期管理由Servlet容器负责
+  生命周期：
+    1..init(Servlet Config)
+    2.service(ServletRequest,ServletResponse)
+    3.destroy()
+  web.xml配置：
+    想要直接在路径访问Servlet类是不可能的，必须配置这个文件
+    <servlet>  -->标签可以单独存在
+        <servlet-name>xxx</servlet-name>
+        <servlet-class>net.zwx.HelloServlet</servlet-class>
+        <load-on-startup>0</load‐on‐startup>  -->越靠近0越先启动
+    </servlet>
+    <servlet-mapping>  -->标签不可以单独存在
+        <servlet-name>xxx</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+11.GenericServlet  -->继承javax.servlet.GenericeServlet
+    public class StundetServlet extends GenericServlet {
+    @Override    
+    public void service(ServletRequest req, ServletResponse res) throws ServletException,
+    IOException {
+    //获取配置信息        
+    ServletConfig servletConfig = this.getServletConfig();        
+    String uname = servletConfig.getInitParameter("uname");        
+    System.out.println(uname);        
+    }    
+    }
+12.HttpServlet -->继承继承javax.servlet.HttpServlet 
+    public class StundetServlet extends HttpServlet{
+    @Override    
+    public void doPost(HttpServletRequest request, HttpServletResponse response) {    
+    System.out.println("xxxxxxxxxxx");        
+    }    
+    @Override    
+    public void doGet(HttpServletRequest request, HttpServletResponse response) {    
+    doPost(request,response);        
+    }          
+    }
+13.访问Servlet的顺序
+  请求路径
+  url pattern标签
+  name标签
+  servlet-class标签
+14.load-on-startup标签作用
+  默认Servlet对象创建是在浏览器第一次请求Servlet的时候
+  通过load-on-startup标签，让Servlet对象随着Servlet容器启动而启动
+    若值为负数，仍然为默认效果，第一次请求时创建
+    若大于等于0，值越小，启动优先级越高
+15.配置
+  1可以只有一个Servlet标签，一般设置随容器启动
+  2不可以只有一个Servlet-mapping标签
+  3可以一个Servlet对应一个Servlet-mapping标签
+  4也可以一个Servlet对应多个Servlet-mapping标签
+  5url-pattern只有两种形式：
+     (1)/xxx 
+     (2)xxx.do
+16.web.xml继承性
+  <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    在web.xml中如果没有欢迎页面，则继承了tomcat中web.xml配置
+17.Servlet中常用接口
+  1ServletRequest接口
+       参数相关
+      String getParameter(String name);
+      String[] getParameterValues(String name);
+      Enumeration getParameterNames();
+      Map<String,String[]> getParameterMap();
+      属性相关
+      setAttribute(String name,Object value);
+      getAttribute(String name);
+      removeAttribute(String name);
+      Enumeration getAttributeNames();
+      //转发
+      getRequestDispatcher(String path).forward(req,res);
+      //设置请求来的编码格式
+      setCharacterEncoding(String encoding);
+      HttpServletRequest
+      //表单请求的方式get|Post
+      String getMethod();
+      HttpSession getSession();  //当前session对象，同一个会话    
+      String getRequestURL(); //  长路径   http://...
+      String getRequestURI(); //  短路径   上下文路径（项目路径）\servlet路径\
+      String getServletPath();//  servlet路径
+      String getContextPath();//  上下文路径（项目路径）
+      String getQueryString();    ?后面的路径
+  2ServletResponse接口
+      PrintWriter getWriter()  : 获取字符流，可以向浏览器客户端输出内容
+      println()  输出内容多了一个空格     
+      write()    输出内容      
+      ServletOutputStream getOutputStream()   : 获取字节流，可以向浏览器客户端输出字节
+      void setCharacterEncoding(String encodign):设置响应编码
+      setContentType(java.lang.String type) :设置响应类型
+      void sendRedirect("路径")  响应重定向
+  3ServletConfig接口
+      String getServletName()
+      ServletContext getServletContext()
+      String getInitiParameter(String name)
+      Enumeration getInitParameterNames() -->枚举的接口，有
+              while (names.hasMoreElements()) {
+              name =names.nextElement();
+              out.println(name + " - " + Arrays.toString(request.getParameterValues(name)));
+      web.xml中<servlet>下应该添加初始化参数
+      <init-param>
+            <param-name>uname</param-name>
+            <param-value>zs</param-value>
+        </init-param>
+        <init-param>
+            <param-name>upass</param-name>
+            <param-value>123</param-value>
+        </init-param>
+              
+             

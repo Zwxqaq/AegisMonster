@@ -169,5 +169,44 @@ Servlet是
             <param-name>upass</param-name>
             <param-value>123</param-value>
         </init-param>
-              
+  4ServletContext接口
+      WEB程序的大管理，可以从中获取WEB应用的各个信息
+      String getInitParameter(java.lang.String name)  根据参数名获取参数值
+      Enumeration getInitParameterNames() 获取所有参数名             
+      String getRealPath(java.lang.String path)   获取绝对路径      
+      String getContextPath(); 获取上下文路径                        
+      InputStream getResourceAsStream(java.lang.String path)   获取流
+      Set getResourcePaths(java.lang.String path)    获取指定目录下所有资源路径
+      属性相关的[略]
+18.属性相关操作
+      JavaWeb四大域对象
+        PageContext 当前页
+        ServletRequest 同一个请求
+        HttpSession 同一个会话
+        ServletContext 同一个应用程序
+        常用方法
+        void setAttribute(String name,Object value);
+        Object getAttribute(String name);
+        void removeAttribute(String name);
+        Enumeration getAttributeNames();
+19.请求转发和重定向
+        ServletRequest对象.getRequestDispatcher("/路径").forward(req,res);  -->Dispatcher我理解为调度器
+        ServletRequest对象.getRequestDispatcher("/路径").include(req,res);
+        ServletResponse对象.sendRedirect("路径");
+        但是要注意，转发不能转发到外部的站点
+        request.getRequestDispatcher("/WEB-INF/jsp/student.jsp").forward(request, response);
+        response.sendRedirect("/WEB-INF/jsp/student.jsp");
+        在上面两句话中，可以知道请求是可以请求转发的，但是重定向却无法访问WEB-INF下的内容
+20.转发和重定向区别
+  相同点：
+    都能跳转页面
+  不同点：
+    转发地址栏不改变，重定向地址栏改变
+    转发ServletRequest是同一个对象，重定向ServletResponse是多个对象
+    转发 / 代表当前应用根路径， 重定向 / 代表Servlet容器的根路径
+    转发只发给当前WEB应用的资源，重定向可以到任何资源
+21.RequestDspatcher两个请求转发的方法
+    forward -->一去不复返 后面有re
+    include -->一去回头
+    response.getWriter().println("shutdown?");  只有在回头的才可以打印的出来
              

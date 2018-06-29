@@ -1,0 +1,19 @@
+三层结构：
+  1.数据访问
+  2.业务逻辑
+  3.图形页面
+Model java类（数据访问、业务逻辑）
+View  jsp（html）
+Controller servlet
+
+util -->db连接和关闭
+dao -->db的操作  -->连接、预处理（传入sql）、执行操作、释放资源
+pojo -->java类
+exception -->异常处理 -->作用：业务逻辑处理
+
+
+view --> service --> dao --> util
+重定向可能没有更新数据
+转发，每次都连接数据库，取得更新的数据
+属性，是往作用域里传递
+参数，是往地址栏里传递

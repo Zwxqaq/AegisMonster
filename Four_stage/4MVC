@@ -17,3 +17,15 @@ view --> service --> dao --> util
 转发，每次都连接数据库，取得更新的数据
 属性，是往作用域里传递
 参数，是往地址栏里传递
+
+数据访问层 dao -->数据库相关操作 厨房小工
+业务逻辑层 service -->厨师
+action -->服务员
+界面 ui
+service层 数据库操作
+action层 调用对应service层 是业务逻辑层的一部分
+
+controller层 接收web请求，分发调用不同逻辑或服务完成一件事情，返回数据
+service层 api接口相关代码
+dao层 与数据库打交道 表增删改查
+logic层 与自己业务逻辑相关

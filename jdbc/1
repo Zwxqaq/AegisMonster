@@ -1,0 +1,95 @@
+JDBC连接Mysql5 com.mysql.jdbc.Driver
+driverClassName=com.mysql.jdbc.Driver
+url=jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false
+username=root
+password=
+
+JDBC连接Mysql6 com.mysql.cj.jdbc.Driver 需要指定时区serverTimezone
+driverClassName=com.mysql.cj.jdbc.Driver
+url=jdbc:mysql://localhost:3306/test?serverTimezone=UTC&?useUnicode=true&characterEncoding=utf8&useSSL=false
+username=root
+password=
+
+mysql连接
+package com.aegis;
+
+import com.mysql.cj.protocol.Resultset;
+import java.sql.*;
+
+public class ConnJDBC {
+  public static void fun1() {
+    {
+      try {
+        Class clazz = Class.forName("com.mysql.cj.jdbc.Driver");
+      } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+      }
+    }
+    {
+      try {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/data?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=UTC","root","Zwx7823478");
+        String sql = "select * from es where es_title regexp 'n{0,2}'";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+          System.out.println(rs.getString("es_title"));
+          System.out.println(rs.getString("es_author"));
+          System.out.println(rs.getString("esn_date"));
+//          System.out.println(rs.getString("es_title"));
+        }
+        rs.close();
+        ps.close();
+        conn.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  public static void main(String[] args) {
+    ConnJDBC.fun1();
+  }
+}
+
+
+mysql表创建
+ String sql = "CREATE TABLE IF NOT EXISTS `es`(\n" +
+            "   `es_id` INT UNSIGNED AUTO_INCREMENT,\n" +
+            "   `es_title` VARCHAR(100) NOT NULL,\n" +
+            "   `es_author` VARCHAR(40) NOT NULL,\n" +
+            "   `esn_date` DATE,\n" +
+            "   PRIMARY KEY ( `es_id` )\n" +
+            ")ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+mysql表查询            
+String sql = "insert into es(es_id,es_title,es_author,esn_date) value(1,'something','zwx',null)";       
+
+mysql表更新
+update es set es_title = 'new title' where es_id = 2
+
+
+mysql正则regexp
+以什么开头 ^
+以什么结尾 $
+以什么开头或者以什么结尾 ^[some]|ing$
+匹配零次或多次 *
+匹配一次或多次 +
+匹配不包含任意字符,注意任意 [^aaa]
+匹配包含任意字符 [aaa]
+匹配任意单个字符 . 若是第一个数，则.参数查询不到  若是最后一个数，这参数.查询不到
+匹配次数 a{2} 如果找不刀a两次则找不到
+匹配次数{n,m} n小于m，且n，m均不为负数
+
+mysql事务
+用于处理操作量大，复杂度高的数据。
+只有使用了 Innodb 数据库引擎的数据库或表才支持事务。
+1原子性：一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。
+2一致性：在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设规则。
+3隔离性：数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。
+    未提交读：A事务只要修改了数据，无论有没有提交，其他事务都能够读取到A事务修改后的结果。
+    提交读：A事务成功commit之后，其他事务才能够读取到A提交事务之后的最新数据，否则只能读取到A提交之前的原始数据。这样就解决了脏读问题。
+4持久性：事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失
+
+es参数
+elasticsearch.cluster-name= mkyong-cluster
+elasticsearch.host= localhost
+elasticsearch.port= 9300

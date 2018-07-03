@@ -1,0 +1,305 @@
+com.aegis
+  .agg 聚合
+    .exception 异常处理
+      .AggUtilException 继承Exception 聚合异常
+      .AggConstructException 继承AggUtilException 聚合结构异常
+      .AggTypeRException 继承AggUtilException 聚合类型异常
+      .AggResultParseException 继承AggUtilException 聚合结构异常
+    .resultparse 结果解析
+      .AggRParser 聚合结果解析
+      .MultiBktResultP 多桶聚合类型结果解析
+      .MultiValueResultP 多值类型聚合结果解析
+      .SingleBktResultP 单筒聚合结果解析
+      .SingleValueResultP 单值类型聚合结果解析
+    .typeresolve 解决类型
+      .AvgAggR 平均聚合
+      .DateHistogramAggR 日期直方图聚合
+      .HistogramAggR 直方图聚合
+      .MaxAggR 最大聚合
+      .MinAggR 最小聚合
+      .NestedAggR 嵌套聚合
+      .SumAggR 求和聚合
+      .TermsAggR 搜索聚合
+    .Agg 聚合
+    .AggConstructor 聚合构造器
+    .AggExecutor 聚合查询执行器（接口）
+    .AggExecutorImpl 聚合查询执行器实现
+  .algorithm.data 算法数据
+    .LawExport 导出法条  
+  .client 客户端
+    .cliapp 客户端app
+      .ParseCheck 解析校验
+    .CaseExportApp 案例导出app
+    .CaseSaveAndAnalyzeApp 案例保存和解析app
+    .ClasspathUpdater 路径更新
+  .component.redis 组件redis 
+               高性能key-value库，特点：1.支持数据持久化 2.不但支持简单key-value数据，还支持list、set、hash等数据存储 3.支持数据备份
+               redis优点：读写速度快，丰富数据类型，原子性(执行要么成功，要么失败)
+    .JsonSerializedTemplateProvider template提供器，提供定制到具体java类型的json序列化的template
+    .RedisCache redis缓存(接口)
+    .RedisCacheImpl redis实现 各种增删改
+  .config 配置
+    .DBConfig 数据库配置 包含hibernate配置
+    .BaseJpaConfig java持久化配置 继承数据库配置
+               properties-config.xml 在该文件下导入了es、jdbc、mongo、rabbit、redis、gragh_tag、application的配置
+    .CacheConfig 缓存配置 
+    .CaseJpaConfig 案例持久化配置 继承数据库配置
+    .ClientAppConfig 客户端app配置
+    .CORSFilter 跨域/编码  一个资源与该资源本身所在服务器不同的域或者端口不同的域或者不同端口请求一个资源时，资源会发起一个跨域http请求
+    .ElasticsearchConfig es配置
+    .GraphTagContextConfig 知识图谱标签配置
+    .Interceptor 拦截器 拦截用户请求并进行处理，比如通过其进行权限验证，判断用户是否登陆等
+    .LocalESConfig 本地es配置
+    .MongoConfig Mongodb数据库配置
+    .MvcConfig web上下文配置
+    .RabbitMQConfig RabbitMQ服务器配置 业务需要消息队列，消息需要持久化，或大量消息需要处理
+              高并发环境下，来不及同步处理，经常会发生堵塞，我理解为有点像线程死锁，就是大量请求堆积，大量插入更新操作在mysql中，导致行锁定、表锁定
+              以上可能会出发许多连接错误，因而使用消息队列，通过异步方式处理请求，缓解系统压力。
+    .RedisConfig redis配置
+    .RootConfig 根源配置
+    .SpringMVCInitializer 继承AbstractAnnotationConfigDispatcherServletInitializer 实现spring DispatcherServlet的配置
+  .controller 控制器
+    .action 处理
+      .agent 代理
+        .AgentAction 案由代理
+      .crawler 爬虫
+        .CaseCrawlerAction 案由爬虫
+      .doc 文书
+        .DocEditAction 文书编辑
+        .DocPrivacyProtectionAction 文书隐名 -->常用
+        .DocUpAction 文书解析
+        .DocGenerate 文书生成
+      .parsecheck 解析校验
+        .ParseCheckController 解析校验控制器
+      .partyname 当事人 
+        .HideMediateAction 调解书隐名处理  
+        .HideNamesAction 隐名处理 -->当事人变成 某某某
+      .print
+        .PrintEviAction 证据效力模型数据接口
+        .PrintExcelAction ##没注释
+        .PrintIndictAction ##没注释
+        .PrintJudgeAction 同案不同判预测模型数据接口
+        .PrintWeightAction ##没注释
+      .report 报告
+        .DocTemplateAction 生成文书模板
+        .PrejudgeAction 智能预审
+        .ReportAction 数据报告接口
+        .TongDaoAction 同道接口 ##什么是同道？
+      .tag 打标签
+        .TagAction 打标签接口
+        .给案由打标签接口 给案由打标签接口
+      .ActionUtil 接口通用方法 
+      .CommonAction 
+      .DemoAction 用于演示demo
+      .ErrAction 纠错信息接口
+      .JdbcAction jdbc接口
+      .PlotAction 人工编辑情节
+      .WeightAction 繁简分流接口，衡量民事案件复杂程度
+    .model 模式 --> ##控制层下为什么会有模式
+      .requestin 请求
+        .ParserCheckCreateForm 新建解析检查任务
+        .ParserCheckRedoForm 重新执行解析检查任务
+      .responseout 响应
+        .ResponseData 数据相应
+    .service 业务层
+      .ParserCheckService 解析检查对比接口 -->创建需求，重新执行需求，终止需求
+      .ParserCheckServiceImpl 解析检查对比接口实现
+      .ScheduledTaskService 计划任务
+    .uidata
+      .NewCaseInfoPropertyMap  案例信息属性map
+      .PageUIData
+      .UIData
+  .dataclean 数据清除
+    .AgentDataCleaner 代理数据清除
+  .dataSync 数据同步
+    .CaseSync 案例同步
+    .DataSync 热备环境与线上环境数据同步
+  .exceptions 异常
+    .BeanCloneException bean拷贝异常
+    .GraphTagException 知识图谱标签异常
+  .fragments
+    .LawyerInfoExcelReader 
+    .scriptScoreSearch
+  .logic 业务逻辑
+    .caseimport 
+      .examplecase 
+        .ExampleCaseImport 指导案例录入  文书加载
+        .ExCaseNumberParser 解析案号
+        .ExCauseIdParser 指导案例案由id解析
+        .ExCourtParser 法院解析
+        .ExDecideTimeParser 指导案例判决时间解析
+        .ExLawParser 法条解析
+        .ExParaUtil ##段落解析？
+        .ExProcedureParser 审理程序解析
+        .ExSubsectionParser 指导案例分段解析
+        .SimpleTagger 指导案例简单标签
+        .ParseFlow 解析流-->案由、分段、案号、法条、裁决时间解析
+      .exception
+        .CaseImportException 导入案例异常
+      .loading
+        .CaseLoader 文书录入接口
+        .TXTFileCaseLoader 文本文件文书导入,实现文本录入接口
+    .component    
+      .HttpClientProvider httpclient 工厂类
+    .controller
+      .AnalyzeThread 线程分析
+      .CaseCrawlerThread 文书采集程序的控制类
+      .CaseTransStoreQueueThread 案由传输存储查询
+      .CaseTransStoreThread 案件传输存储线程
+      .CsvEviThread 生成证据效力模型数据文件
+      .CsvIndictThread 
+      .CsvJudgeThread 生成预测模型文件
+      .CsvWeightThread 
+      .ExampleThread 指导案例
+      .GenerateThread
+      .TagActionThread 打指定标签
+      .TagCauseThread 给案由打标签
+      .TagMongoThread 重新解析同案不同判文书
+    .export
+      .CaseInfoExport 案由信息数据内外网导入导出类
+      .DocDownload 文书下载
+      .IndicatorExport 
+      .LawFirmExport 
+    .handler
+      .common
+        .BirthDateHandler 出生日期处理
+        .ClaimHandler 诉讼请求段落和核心诉请提取
+        .IndustryHandler 公用的当事人行业分类
+        .WinSuitHandler 当事人胜诉率解析
+      .judges 法官
+        .ability
+          .anlyze
+            .AbilityAnalyze 能力分析，分析法官能力
+            .Indicator 法官评价指标
+            .IndicatorAggUtil 聚合相关指标
+        .CaseComplexityIndicatorHandler 按键复杂度指标处理
+        .CaseCourtInfoCounterRe 根据虎丘区对接的法院数据，统计鉴定次数、开庭次数、阅卷量、合议庭讨论次数、协调会、汇报会次数、调查、听证、
+                                提审、调解次数、接待当事人来访次数
+        .InnerExcelHandler 内网法官数据录入
+        .InnerJudgeHandler 江苏高院内网录入直接从数据库读出的法官信息
+        .JudgeHandler 法官信息更新
+        .JudgeStarHandler 计算法官星级评价
+        .NewTagToOldCaseInfoHandler
+      .macroforecast
+        .BaseDataHandler
+        .CauseDataHandler 案由数据处理
+        .CourtCaseDataHandler 法院案例数据处理
+        .MacroforecastHandler 预测处理
+        .ZJIntelligentPredictionDataHandler 浙江智能预测数据处理
+      .makedata
+        .EsDataHandler es数据处理,统一增加es新增标签数据
+        .TemplateHanlder 文书模板数据生成类
+        .TestEs
+      .plot 各类案件情节
+        .administrativeCase 
+          .AdministrativeCaseHandler 行政案件处理
+        .dangerousdriving
+          .AlcoholicityHandler 酒精含量的提取
+          .BrandAndAddressHandler 车牌以及酒驾路段
+          .PedigreeHandler 前科提取和未明伤害、未注明车辆
+        .divorce
+          .DivorceHandler 离婚处理
+        .drug
+          .DrugHandler 毒品处理
+          .DrugParser 吸毒解析
+          .OtherDrugParser 其他毒品解析
+        .financialLoan 金融贷款
+          .BankHandler 银行贷款处理
+          .FinancialLoanHandler 金融贷款处理
+        .IntellectualProperty 知识产权
+          .ForeignCaseHandler 涉外籍的知识产权及外籍胜诉率
+          .WebCaseHandler 涉网络的知识产权及案由分布
+        .LaborDispute 劳工纠纷
+          .LabourDisputeHandler 劳工争议处理
+        .medicalDisputes 医疗纠纷
+          .MedicalDisputeHandler 医疗纠纷处理
+        .privatelending 民间借款
+          .MoneyHandler 民间借贷的标的金额解析
+        .rape
+          .RapeHandler 强奸案件处理
+      .privacyprotection
+        .DescriptionHandlerThread 
+        .HideOrganization 公司隐名
+        .PrivacyProtectionHandle 隐私保护
+        .SynchronizeThread 同步线程
+      .replot 重写更新了
+        .common 
+          .BagOfWordsHandler 根据词袋解析情节
+        .misappropriation
+          .MisappropriationMoneyParser 挪用公款
+          .MoneyParserByHanltp 用hanlp解析公款
+        .personalInfo 
+          .PersonalInfoReHandler 侵犯个人信息
+        .theme
+          .MinorThemeHandler 未成年人犯罪
+        .PlotFlow 情节解析
+        .DateTimeExtract 抽取交通肇事罪和危险驾驶罪的案发时间和死亡人数
+        .DocTypeHandler 处理福建的文书类型的分析错误并纠正
+        .FjInnerDataHandler 福建内网数据处理
+        .FjOutDataHandler 福建外网
+    .knowledgegraph 法律知识图谱解析
+       .graphtag 图标
+        .tag
+          .flow
+            .rule
+              .PersonEntityReplace 人物实体替换
+              .TagRuleResolver 标签规则解析器
+            .KeyWordsMatcher 关键字匹配  
+          .score 打分模块, 该模块下管理了对命中的标记标签进行打分的类
+            .subscore
+              .CauseAppealScorer 诉称句或诉求句打分
+              .FocusScorer 句子争议属性
+              .ParagraphScorer 段落特征得分
+              .SentLogicScorer 句子逻辑特征
+              .StatusScorer 状态词
+              .SubjectScorer 句子主体特征
+              .TimeAttrScorer 时间属性判断
+              .WordsLengthScorer 词长得分
+            .TagScore 命中标签得分计算
+          .threads
+            .GraphTagThread 图标线程
+            .IntermediateFileThread 中间文件处理线程
+            .TagResultSaveThread 打标签结果存储线程
+          .GraphTagCachedProvider 图谱标签提供者,封装了GraphTagService的接口实现了惰性加载和缓存
+          .TagExecutor 标签流程执行器
+          .TagSchedule 标签解析任度务调器
+        .util
+          .MathUtil 数学工具类
+          .TermUtil 分词结果工具
+      .model
+        .interfacebean
+          .Chain 基于知识图谱的标签链, 可以是单个实体，三元组，以及链结构
+          ...
+          .GraphTag 图谱标签 为下面的父类
+          .MarkerTag 标注型标签
+          .ParseTag 解析型标签
+          ...
+          .TagRule 标签规则
+        .GTMatchDetails 知识图谱标签关键词匹配详情
+        .ParaTerms 段落的分词结果
+        .SentenceTerms 按句分类的分词结果
+        .TagItem 封装了分词结果和NewCaseInfo对象
+        .TagResult 返回结果封装类
+      .service
+        .GraphTagFTPService 将文件上传至知识谱图标签的ftp服务器
+        .GraphTagService 知识图谱标签接口
+        .IntermediateDocService 中间文件
+        .SaveTagResultService 保存到本地测试环境
+      .ClassifyFocusParser 焦点解析
+      .FocusContentParser 争议焦点内容解析
+      .FocusEntityParser 解析争议焦点的实体
+      .TFIDFAnalyzer 分词器处理
+    .parser
+      .basic
+        .JsonParser
+        .LabelParser 标签解析 文本分段
+        .LabelUtil.kt 标签工具类 分段的基本方法
+        .LawUtil 法条工具类
+        .LTPWordParser LTP 分词
+        .ParserUtil
+        .WordParser 分词工具类
+      .bean
+        案由、金额、案件信息、法条、标签扩展方法、段落名、搜索相关javabean
+      .....  
+        
+    
